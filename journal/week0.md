@@ -23,11 +23,10 @@ Proof ![Recreating Conceptual Diagram](assets/week 0 conceptual diagram.png)
 Proof ![Recreating Logical Diagram](assets/week 0 logical diagram.png)
 Proof ![Sketching napkin design](assets/week 0 napkin designs.png)
 
+
 ### Create a Budget
 
 I was able to create my budget alarm on my AWS Console manually and also create it using AWS CLI.
-Proof ![Creating a  Budget](assets/week 0 budget alarm.png)
 
-### Create a Billing Alarm
-I was able to create my billing alarm on my AWS Console manually and also create it using AWS CLI.
-Proof ![Creating a Billing Alert](assets/week 0 billing alert.png)
+![Image of Budget Alarm I Created](assets/week 0 budget alarm.png)
+
