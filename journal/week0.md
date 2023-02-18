@@ -19,7 +19,9 @@ https://lucid.app/lucidchart/5d50320c-5693-4ac4-b941-4797e7f89f95/edit?viewport_
 
 ## Image proofs of diagrams 
 Proof ![Recreating Conceptual Diagram](assets/week 0 conceptual diagram.png)
+
 Proof ![Recreating Logical Diagram](assets/week 0 logical diagram.png)
+
 Proof ![Sketching napkin design](assets/week 0 napkin designs.png)
 
 ### Create a Budget
