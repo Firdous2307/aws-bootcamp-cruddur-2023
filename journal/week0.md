@@ -18,8 +18,8 @@ https://lucid.app/lucidchart/5d50320c-5693-4ac4-b941-4797e7f89f95/edit?viewport_
 ### Create a Budget
 
 I was able to create my budget alarm on my AWS Console manually and also create it using AWS CLI.
-Proof ![Creating a  Budget](assets/week 0 budgets alarm.png)
+Proof ![Creating a  Budget](assets/week 0 budget alarm.png)
 
 ### Create a Billing Alarm
 I was able to create my billing alarm on my AWS Console manually and also create it using AWS CLI.
-Proof
+Proof ![Creating a Billing Alert](assets/week 0 billing alert.png)
