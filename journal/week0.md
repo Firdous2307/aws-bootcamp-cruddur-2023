@@ -19,7 +19,7 @@ https://lucid.app/lucidchart/5d50320c-5693-4ac4-b941-4797e7f89f95/edit?viewport_
 ## Image proofs of diagrams 
 ![Recreating Conceptual Diagram](assets/week%200%20conceptual%20diagram.png)
 ![Sketching napkin design](assets/week%200%20napkin%20designs.JPG)
-![Recreating Logical Architectural Diagrams](assets/week%200%20architectural%20diagram.png)
+![Recreating Logical Architectural Diagrams](assets/week%200%20Architectural%20Diagram.png)
 
 
 
