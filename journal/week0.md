@@ -30,3 +30,9 @@ I was able to create my budget alarm on my AWS Console manually and also create 
 
 ![Image of Budget Alarm I Created](assets/week%200%20budget%20alarm.png)
 
+
+
+## Create a Billing Alert
+I was able to create my billing alert on my AWS Console manually and also create it using AWS CLI.
+![Image of Billing Alert I Created](assets/week%200%20billing%20alert.png)
+
