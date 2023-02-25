@@ -3,7 +3,7 @@
 # REQUIRED Homework/Tasks
 Following the live streamed Week 1 Video about App Containerization, I was able to complete the required assignment with slight challenges, but I was able to scale through.
 
-## Created Dockerfile into the backend-flask folder and copied code into the file
+## 1. Created Dockerfile into the backend-flask folder and copied code into the file
 
 ```
 # This image is fetched from Docker Hub
@@ -59,9 +59,41 @@ unset BACKEND_URL="*"
 
 ```
 
-# I ran the container in the background
+# I built the container in the background
 ```
 docker container run --rm -p 4567:4567 -d backend-flask
 
 ```
+# I forgot to take a screenshot of the port showing 404 not found, I hope this is sufficient enough
 ![Image of Dockerfile](assets/week%201%20Dockerfile.png)
+
+
+## 2. Created Dockerfile into the frontend-react-js folder and copied code into this file
+```
+FROM node:16.18
+
+ENV PORT=3000
+
+COPY . /frontend-react-js
+WORKDIR /frontend-react-js
+RUN npm install
+EXPOSE ${PORT}
+CMD ["npm", "start"]
+
+```
+# Before doing the docker build I had to install npm into the gitpod workspace.
+```
+npm install
+
+```
+
+# From the Dockerfile I was able to build an image inside with these commands.
+```
+docker build -t frontend-react-js ./frontend-react-js
+```
+# I was able to run the container
+```
+docker run -p 3000:3000 -d frontend-react-js
+```
+## 3. Multiple Containers(Using Docker Compose)
+
