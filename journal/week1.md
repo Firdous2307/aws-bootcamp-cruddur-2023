@@ -183,7 +183,7 @@ docker compose up
       - "./docker/dynamodb:/home/dynamodblocal/data"
     working_dir: /home/dynamodblocal
 ```
-
+![Proof of DynamoDB](assets/week%201%20DynamoDB%20local.png)
 
 ### 5. Creating and Running Postgres DB
 
@@ -271,7 +271,7 @@ def data_notifications():
 
 Go ahead and add a `notification` file in the `backend-flask/services/` directory
 ```bash
-touch backend-flask/services/notifications_activities.py
+backend-flask/services/notifications_activities.py
 ```
 
 Add the following content to the created file 
@@ -282,8 +282,8 @@ class NotificationsActivities:
     now = datetime.now(timezone.utc).astimezone()
     results = [{
       'uuid': '68f126b0-1ceb-4a33-88be-d90fa7109eee',
-      'handle':  'Dev Queen',
-      'message': 'Yah, I got this!',
+      'handle':  ' Firdous',
+      'message': 'Cloud is fun',
       'created_at': (now - timedelta(days=2)).isoformat(),
       'expires_at': (now + timedelta(days=5)).isoformat(),
       'likes_count': 5,
@@ -304,6 +304,9 @@ class NotificationsActivities:
     return results
 ```
 
+![Proof of Notifications Activities](assets/week1%20Open%20API%20Notifications.png)
+![Proof of Home Activities](assets/Week%201%20Open%20API%20home.png)
+
 ### 7. Adding a React Page for Notifications
 
 We need to add a notification feed to the `app.js` file in the `frontend-react-js/src/app.js` directory. Go ahead and add the following contents:
@@ -322,11 +325,11 @@ import process from 'process';
   },
 ```
 
-Now let's create a page for the feed we just created:
+Now create a page for the feed we just created:
 ```bash
 # in frontend-react-js/src/pages/
-touch frontend-react-js/src/pages/NotificationsFeedPage.js
-touch frontend-react-js/src/pages/NotificationsFeedPage.css
+frontend-react-js/src/pages/NotificationsFeedPage.js
+frontend-react-js/src/pages/NotificationsFeedPage.css
 ```
 
 Add the following content to the `NotificationsFeedPage.js` file:
