@@ -304,7 +304,7 @@ class NotificationsActivities:
     return results
 ```
 
-### 5. Adding a React Page for Notifications
+### 7. Adding a React Page for Notifications
 
 We need to add a notification feed to the `app.js` file in the `frontend-react-js/src/app.js` directory. Go ahead and add the following contents:
 
