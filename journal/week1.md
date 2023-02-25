@@ -5,7 +5,7 @@ Following the live streamed Week 1 Video about App Containerization, I was able 
 
 ### 1. Created Dockerfile into the backend-flask folder and copied code into the file
 
-```
+```dockerfile
 # This image is fetched from Docker Hub
 FROM python:3.10-slim-buster
 
@@ -37,16 +37,16 @@ CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "--port=4567"]
 
 ```
 
-# From the Dockerfile I was able to build a container inside with these commands.
+### From the Dockerfile I was able to build a container inside with these commands.
 
 ```
 docker build -t  backend-flask ./backend-flask
 
 ```
 
-# From the Dockerfile I was able to run the container using these commands.
+### From the Dockerfile I was able to run the container using these commands.
 
-```
+```sh
 
 docker run --rm -p 4567:4567 -it backend-flask
 FRONTEND_URL="*" BACKEND_URL="*" docker run --rm -p 4567:4567 -it backend-flask
@@ -59,17 +59,17 @@ unset BACKEND_URL="*"
 
 ```
 
-# I built the container in the background
-```
+### I built the container in the background
+```sh
 docker container run --rm -p 4567:4567 -d backend-flask
 
 ```
-# I forgot to take a screenshot of the port showing 404 not found, I hope this is sufficient enough
+### I forgot to take a screenshot of the port showing 404 not found, I hope this is sufficient enough
 ![Image of Dockerfile](assets/week%201%20Dockerfile.png)
 
 
 ### 2. Created Dockerfile into the frontend-react-js folder and copied code into this file
-```
+```dockerfile
 FROM node:16.18
 
 ENV PORT=3000
@@ -81,28 +81,27 @@ EXPOSE ${PORT}
 CMD ["npm", "start"]
 
 ```
-# Before doing the docker build I had to install npm into the gitpod workspace.
+### Before doing the docker build I had to install npm into the gitpod workspace.
 ```
 npm install
 
 ```
 
-# From the Dockerfile I was able to build an image inside with these commands.
+### From the Dockerfile I was able to build an image inside with these commands.
 ```
 docker build -t frontend-react-js ./frontend-react-js
 ```
-# I was able to run the container
-```
+### I was able to run the container
+```docker
 docker run -p 3000:3000 -d frontend-react-js
 ```
 ### 3. Multiple Containers(Using Docker Compose)
+ The use of docker compose helps us deal with multiple containers. Let's create a docker compose file at the root of our project `/workspace/aws-bootcamp-cruddur-2023`, assuming you are using gitpod.
 
-# The use of docker compose helps us deal with multiple containers. Let's create a docker compose file at the root of our project /workspace/aws-bootcamp-cruddur-2023, assuming you are using gitpod.
-
-# To make sure you are in the root of your project 
+### To make sure you are in the root of your project 
 pwd 
 
-# now create the docker-compose file
+### now create the docker-compose file
  ```
  docker-compose.yml
 ```
