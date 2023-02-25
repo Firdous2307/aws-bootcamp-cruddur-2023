@@ -4,6 +4,8 @@
 Following the live streamed Week 1 Video about App Containerization, I was able to complete the required assignment with slight challenges, but I was able to scale through.
 
 ## Created Dockerfile into the backend-flask folder and copied code into the file
+
+```
 # This image is fetched from Docker Hub
 FROM python:3.10-slim-buster
 
@@ -33,6 +35,12 @@ EXPOSE ${PORT}
 # --port=4567 is for setting the app port
 CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "--port=4567"]
 
+```
 
 # From the Dockerfile I was able to build a container inside with these commands.
+
+```
 docker build -t  backend-flask ./backend-flask
+
+```
+
