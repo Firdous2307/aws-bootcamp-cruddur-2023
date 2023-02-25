@@ -64,4 +64,4 @@ unset BACKEND_URL="*"
 docker container run --rm -p 4567:4567 -d backend-flask
 
 ```
-![Image of Dockerfile](assets)
+![Image of Dockerfile](assets/week%201%20Dockerfile.png)
