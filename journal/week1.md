@@ -97,3 +97,61 @@ docker run -p 3000:3000 -d frontend-react-js
 ```
 ## 3. Multiple Containers(Using Docker Compose)
 
+# The use of docker compose helps us deal with multiple containers. Let's create a docker compose file at the root of our project /workspace/aws-bootcamp-cruddur-2023, assuming you are using gitpod.
+
+# to make sure you are in the root of your project 
+pwd 
+
+# now create the docker-compose file
+ ```
+ docker-compose.yml
+```
+# Go ahead and copy this content into your file
+ version: "3.8"
+
+# here is where you declare your services -> frontend & backend 
+services:
+
+  # BACKEND
+  backend-flask:
+
+    # passing our env variables
+    environment:
+      FRONTEND_URL: "https://3000-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
+      BACKEND_URL: "https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
+    
+    # building our image
+    build: ./backend-flask
+
+    # mapping our ports -> local:container
+    ports:
+      - "4567:4567"
+    
+    # mapping our volumes -> local:container
+    volumes:
+      - ./backend-flask:/backend-flask
+  
+  # FRONTEND
+  frontend-react-js:
+    
+    # passing our env variables
+    environment:
+      REACT_APP_BACKEND_URL: "https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
+    
+    # building our image
+    build: ./frontend-react-js
+    
+    # mapping our ports -> local:container
+    ports:
+      - "3000:3000"
+    
+    # mapping our volumes -> local:container
+    volumes:
+      - ./frontend-react-js:/frontend-react-js
+
+# the name flag is a hack to change the default prepend folder
+# name when outputting the image names
+networks: 
+  internal-network:
+    driver: bridge
+    name: cruddur
