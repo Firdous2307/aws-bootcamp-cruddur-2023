@@ -32,14 +32,20 @@ import watchtower
 import logging
 from time import strftime
 
+# RollBar ----
+import os
+import rollbar
+import rollbar.contrib.flask
+from flask import got_request_exception
+
 # Configuring Logger to Use CloudWatch
-# LOGGER = logging.getLogger(__name__)
-# LOGGER.setLevel(logging.DEBUG)
-# console_handler = logging.StreamHandler()
-# cw_handler = watchtower.CloudWatchLogHandler(log_group='cruddur')
-# LOGGER.addHandler(console_handler)
-# LOGGER.addHandler(cw_handler)
-# LOGGER.info("test log")
+LOGGER = logging.getLogger(__name__)
+LOGGER.setLevel(logging.DEBUG)
+console_handler = logging.StreamHandler()
+cw_handler = watchtower.CloudWatchLogHandler(log_group='cruddur')
+LOGGER.addHandler(console_handler)
+LOGGER.addHandler(cw_handler)
+LOGGER.info("test log")
 
 # HoneyComb -----------
 # Initialize tracing and an exporter that can send data to Honeycomb
@@ -86,6 +92,29 @@ cors = CORS(
 #    timestamp = strftime('[%Y-%b-%d %H:%M]')
 #    LOGGER.error('%s %s %s %s %s %s', timestamp, request.remote_addr, request.method, request.scheme, request.full_path, response.status)
 #    return response
+
+# RollBar ------
+rollbar_access_token = os.getenv('ROLLBAR_ACCESS_TOKEN')
+@app.before_first_request
+def init_rollbar():
+    """init rollbar module"""
+    rollbar.init(
+        # access token
+        rollbar_access_token,
+        # environment name
+        'production',
+        # server root directory, makes tracebacks prettier
+        root=os.path.dirname(os.path.realpath(__file__)),
+        # flask already sets up logging
+        allow_logging_basic_config=False)
+
+   # send exceptions from `app` to rollbar, using flask's signal system.
+    got_request_exception.connect(rollbar.contrib.flask.report_exception, app)
+
+@app.route('/rollbar/test')
+def rollbar_test():
+    rollbar.report_message('Hello World!', 'warning')
+    return "Hello World!"
 
 @app.route("/api/message_groups", methods=['GET'])
 def data_message_groups():
