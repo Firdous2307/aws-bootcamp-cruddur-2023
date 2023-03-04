@@ -65,7 +65,7 @@ docker container run --rm -p 4567:4567 -d backend-flask
 
 ```
 ### I forgot to take a screenshot of the port showing 404 not found, I hope this is sufficient enough
-![Image of Dockerfile](assets/week%201%20Dockerfile.png)
+![Image of Dockerfile](assets/week%201/Dockerfile.png)
 
 
 ### 2. Created Dockerfile into the frontend-react-js folder and copied code into this file
@@ -162,8 +162,8 @@ Start up our containers using this command:
 docker compose up
 ```
 **Now you should see both services up and running**
-![Image of Cruddur](assets/week1%20%20frontend-backend.png)
-![Proof of Docker Compose](assets/week%201%20docker%20compose.png)
+![Image of Cruddur](assets/week%201/frontend-backend.png)
+![Proof of Docker Compose](assets/week%201/%20docker%20compose.png)
 
 
 
@@ -183,7 +183,7 @@ docker compose up
       - "./docker/dynamodb:/home/dynamodblocal/data"
     working_dir: /home/dynamodblocal
 ```
-![Proof of DynamoDB](assets/week%201%20DynamoDB%20local.png)
+![Proof of DynamoDB](assets/week%201/DynamoDB%20local.png)
 
 ### 5. Creating and Running Postgres DB
 
@@ -217,7 +217,7 @@ To be able to interact with the `postgres client`, we need to install the extens
  
 
 After installation, create a database with any password of your choice using the postgres extension in `gitpod`.
-![Image of the DB ](assets/week1%20Postgres.png)
+![Image of the DB ](assets/week%201/%20Postgres.png)
 
 Connect to the `postgres client` using these commands:
 ```
@@ -304,8 +304,8 @@ class NotificationsActivities:
     return results
 ```
 
-![Proof of Notifications Activities](assets/week1%20Open%20API%20Notifications.png)
-![Proof of Home Activities](assets/Week%201%20Open%20API%20home.png)
+![Proof of Notifications Activities](assets/week%201/Open%20API%20Notifications.png)
+![Proof of Home Activities](assets/week%201/Open%20API%20home.png)
 
 ### 7. Adding a React Page for Notifications
 
