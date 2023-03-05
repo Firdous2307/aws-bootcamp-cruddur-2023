@@ -67,7 +67,7 @@ In the `backend-flask` directory, run the following command:
 ```
 pip install -r requirements.txt
 ```
-![Image of installation](assets/week%202%20pip%20installation.png)
+![Image of installation](assets/week%202/%20pip%20installation.png)
 
 Let's create and initialize honeycomb by adding the following lines of code to `app.py` file
 ```python
@@ -298,7 +298,7 @@ from aws_xray_sdk.core import xray_recorder
     # Close subsegment
     xray_recorder.end_subsegment()
 ```
-![Image of XRay Segment](asssets/week%202/xray%20segment.png)
+![Image of XRay Segment](assets/week%202/xray%20segment.png)
 ![Image of AWS XRay Segment](assets/week%202/AWS%20xray%20segment.png)
 ![Image of XRay SubSegment](assets/week%202/xray%20subsegment.png)
 
