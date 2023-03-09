@@ -2,7 +2,7 @@ import './RecoverPage.css';
 import React from "react";
 import {ReactComponent as Logo} from '../components/svg/logo.svg';
 import { Link } from "react-router-dom";
-
+import { Auth } from 'aws-amplify';
 export default function RecoverPage() {
   // Username is Eamil
   const [username, setUsername] = React.useState('');
@@ -14,15 +14,26 @@ export default function RecoverPage() {
 
   const onsubmit_send_code = async (event) => {
     event.preventDefault();
-    console.log('onsubmit_send_code')
+    setErrors('')
+    Auth.forgotPassword(username)
+    .then((data) => setFormState('confirm_code') )
+    .catch((err) => setErrors(err.message) );
     return false
   }
-  const onsubmit_confirm_code = async (event) => {
-    event.preventDefault();
-    console.log('onsubmit_confirm_code')
-    return false
+  
+ 
+const onsubmit_confirm_code = async (event) => {
+  event.preventDefault();
+  setErrors('')
+  if (password == passwordAgain){
+    Auth.forgotPasswordSubmit(username, code, password)
+    .then((data) => setFormState('success'))
+    .catch((err) => setCognitoErrors(err.message) );
+  } else {
+    setErrors('Passwords do not match')
   }
-
+  return false
+}
   const username_onchange = (event) => {
     setUsername(event.target.value);
   }
