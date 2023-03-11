@@ -43,13 +43,13 @@ import rollbar.contrib.flask
 from flask import got_request_exception
 
 # Configuring Logger to Use CloudWatch
-#LOGGER = logging.getLogger(__name__)
-#LOGGER.setLevel(logging.DEBUG)
-#console_handler = logging.StreamHandler()
-#cw_handler = watchtower.CloudWatchLogHandler(log_group='cruddur')
-#LOGGER.addHandler(console_handler)
-#LOGGER.addHandler(cw_handler)
-#LOGGER.info("some message")
+LOGGER = logging.getLogger(__name__)
+LOGGER.setLevel(logging.DEBUG)
+console_handler = logging.StreamHandler()
+cw_handler = watchtower.CloudWatchLogHandler(log_group='cruddur')
+LOGGER.addHandler(console_handler)
+LOGGER.addHandler(cw_handler)
+LOGGER.info("some message")
 
 # HoneyComb -----------
 # Initialize tracing and an exporter that can send data to Honeycomb
@@ -178,7 +178,7 @@ def data_home():
     # unauthenicatied request
     app.logger.debug(e)
     app.logger.debug("unauthenicated")
-  data = HomeActivities.run(Logger=LOGGER)
+  data = HomeActivities.run()
   return data, 200
 
 @app.route("/api/activities/notifications", methods=['GET'])

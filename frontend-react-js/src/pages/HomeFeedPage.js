@@ -39,6 +39,8 @@ export default function HomeFeedPage() {
       console.log(err);
     }
   };
+
+  
   const checkAuth = async () => {
     Auth.currentAuthenticatedUser({
       // Optional, By default is false. 
