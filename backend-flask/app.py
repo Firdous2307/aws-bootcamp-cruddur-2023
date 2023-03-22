@@ -45,8 +45,8 @@ from flask import got_request_exception
 # Configuring Logger to Use CloudWatch
 #LOGGER = logging.getLogger(__name__)
 #LOGGER.setLevel(logging.DEBUG)
+#cw_handler = watchtower.CloudWatchLogHandler(log_group='cruddur')
 #console_handler = logging.StreamHandler()
-#LOGGER.addHandler(console_handler)
 #LOGGER.addHandler(cw_handler)
 #LOGGER.info("some message")
 
@@ -78,7 +78,7 @@ cognito_jwt_token = CognitoJwtToken(
 )
 
 # X-RAY --------
-#XRayMiddleware(app, xray_recorder)
+XRayMiddleware(app, xray_recorder)
 
 # HoneyComb ----------
 # Initialize automatic instrumentation with Flask
