@@ -16,8 +16,7 @@
 			]
 		}
 	},
-	"postCreateCommand": "cd/workspaces/aws-bootcamp-cruddur-2023/frontend-react-js && npm update -g && npm i"
-
+	"postCreateCommand": "bash .devcontainer/postCreateCommand.sh"
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
