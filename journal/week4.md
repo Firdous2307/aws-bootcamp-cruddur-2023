@@ -105,7 +105,7 @@ gp env CONNECTION_URL="postgresql://postgres:password@localhost:5432/cruddur"
 ```
 do the same steps for the rds (not necessary at this point unless you start connecting with the rds)
 
-from backend-flask create a folder call bin and inside create 3 files called"db-create" "db-drop" and "db-schema-load" and inside for each file created, insert the following command
+from backend-flask create a folder called bin and inside create 3 files called "db-create" "db-drop" and "db-schema-load" and inside for each file created, insert the following command
 ```
 #! /usr/bin/bash
 ```
@@ -242,7 +242,7 @@ VALUES
 
 # 5. Creating connection with RDS
 
-If you have stopped and rerun your gitpod/codespace enviroment, make sure to rerun the **db-create**, **db-schema-load** and **db-seed** in the order mention before running the db-connect. Make sure the containers are up and running first before making the connection!
+If you have stopped and rerun your gitpod/codespace enviroment, make sure to rerun the `db-create`, `db-schema-load` and `db-seed` in the order mention before running the db-connect. Make sure the containers are up and running first before making the connection!
 
 
 **How to see the connection**
@@ -261,7 +261,7 @@ from pg_stat_activity;"
 
 changed the permission of the file:
 ```
- chmod u+x ./db-sessionsdb-sessions
+ chmod u+x ./db-sessions
 ```
 ![Image of db-sessions](assets/week%204/db-sessions.png)
 ![Image of db-sessions](assets/week%204/db-sessions%20with%20active%20and%20idle%20ones.png)
@@ -295,13 +295,13 @@ changed the permission of the file:
 
 ## Install driver for psql
 
-Add the following libraries into the requirements.txt of the backend flask
+Add the following libraries into the `requirements.txt` of the backend flask
 ```
 psycopg[binary]
 psycopg[pool]
 ```
 
-and run the for this time the following command:
+and run the following command:
 ```
 pip install -r requirements.txt
 ```
@@ -398,7 +398,7 @@ gp env DB_SG_RULE_ID="sgr-sdfsdfsdf"
 ![Image of update rule](assets/week%204/update%20rule.png)
 
 Since the ip address changes everytime, you need to change the ip on the security group of the rds instance
-here is the script to add to the file **rds-update-sg-rule** under bin
+here is the script to add to the file `rds-update-sg-rule` under bin
 ```
 aws ec2 modify-security-group-rules \
     --group-id $DB_SG_ID \
