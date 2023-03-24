@@ -470,7 +470,7 @@ arn:aws:lambda:your region:898466741470:layer:psycopg2-py38:1
 now it is time to create the trigger for cognito.
 from cognito,  select the user pool and go to the user pool properties to find the lambda triggers. follow the configuration according to the image below:
 
-![lambda triggers](https://github.com/dontworryjohn/aws-bootcamp-cruddur-2023/blob/main/images/lambda%20triggers.png)
+![lambda triggers](assets/)
 
 Make sure to attach the following policy **AWSLambdaVPCAccessExecutionRole** to the lambda role by going to configuration>permission> link under the Role name.
 
@@ -478,7 +478,7 @@ Once attached the policy, go to VPC and select the VPC where resides the RDS,
 the subnet mask (i suggest selecting just 1 as you could have timeout error during the execution of the lambda) and select the same security group of the rds. In my case i took the default vpc for my region as i deployed there, the subnetmask in my case eu-west-2a (make sure to verify where reside your rds by going to EC2>Network Interface under network & security)
 and security group please make sure to insert the new inbound rule
 
-![Security Group](https://github.com/dontworryjohn/aws-bootcamp-cruddur-2023/blob/main/images/newSG.png)
+![Security Group](assets/)
 
 #Troubleshooting
 
