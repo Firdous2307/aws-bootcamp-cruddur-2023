@@ -123,7 +123,6 @@ from the file `db-drop` add the following code
 echo "db-drop"
 NO_DB_CONNECTION_URL=$(sed 's/\/cruddur//g' <<<"$CONNECTION_URL")
 ```
-For more information about sed visit the following [link](https://www.geeksforgeeks.org/sed-command-in-linux-unix-with-examples/)
 
 from the file `db-create` add the following command
 ```
@@ -154,8 +153,6 @@ fi
 
 psql $URL cruddur < $schema_path
 ```
-
-for the coloring the echo refer to the following [link](https://stackoverflow.com/questions/5947742/how-to-change-the-output-color-of-echo-in-linux)
 
  on `schema.sql` insert the code to create the table users and table activities
  ```
@@ -496,7 +493,7 @@ and security group please make sure to insert the new inbound rule
 ![Image of users database](assets/week%204/users%20database.png)
 ![Image of New ACtivities](assets/week%204/new%20activities.png)
 
-#Troubleshooting
+# Troubleshooting
 
 This command is to see if the connection is estabilished
 ```
