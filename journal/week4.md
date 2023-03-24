@@ -1,12 +1,12 @@
 # Week 4 — Postgres and RDS
 
-# Security in RDS
+# 1. Security in RDS
 
 An RDS instance refers to a managed relational database service provided by Amazon Web Services (AWS). It is a scalable and cost-effective solution for creating, operating, and managing a relational database in the cloud.
 
 RDS supports several popular database engines, including MySQL, PostgreSQL, Oracle, and Microsoft SQL Server, among others. With RDS, you can easily set up, configure, and scale a database instance in the cloud with just a few clicks.
 
-## Best practice in AWS and application
+# 2. Best practice in AWS and application
 
 - Make sure to create the database in the region you set as your default region.
 - Another best practice is to set the encryption on your database.
@@ -21,7 +21,7 @@ RDS supports several popular database engines, including MySQL, PostgreSQL, Orac
 - Limit the operation of the users.
 - Authentication using IAM or Kerberos.
 
-# Create RDS
+# 3. Create RDS
 
 from the terminal post the following command to create the RDS Instance
 ```
@@ -47,8 +47,8 @@ aws rds create-db-instance \
 ```
 
 Once the rds is running, make sure to put it in stop so you dont incure with extra cost. Note that this is valid only for 7 days so it is not permanent.
-[Image of RDS Configuration](assets/)
-[Image of RDS Availability](assets/)
+![Image of RDS Configuration](assets/week%204/rds%20instance%20configuration.png)
+![Image of RDS Availability](assets/week%204/rds%20available.png)
 
 from the terminal type the following code
 ```
@@ -75,7 +75,7 @@ UPDATE table_name SET column1 = value1, column2 = value2, ... WHERE condition; -
 DELETE FROM table_name WHERE condition; -- Delete data from a table
 ```
 
-# create local database 
+# 4. Create local database 
 
 Type the following command to create the database within the PSQL client
 ```
@@ -88,7 +88,7 @@ and insert the following sql command on the schema.sql created before
 ```
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 ```
-[Image of local database](assets/)
+![Image of local database](assets/week%204/create%20local%20database.png)
 
 exit from the psql command by typing the following command
 ```
@@ -116,7 +116,7 @@ chmod u+x bin/db-create
 chmod u+x bin/db-drop
 chmod u+x bin/db-schema-load
 ```
-[Image of Chmod files](assets/)
+![Image of Chmod files](assets/week%204/executable%20files.png)
 
 from the file `db-drop` add the following code
 ```
@@ -183,7 +183,7 @@ CREATE TABLE public.activities (
   created_at TIMESTAMP default current_timestamp NOT NULL
 );
  ```
- [Image of schema sql](assets/)
+ ![Image of schema sql](assets/week%204/schema%20sql.png)
 
  create a script inside the folder bin called **db-connect** 
  ```
@@ -196,7 +196,7 @@ and change the permission of the file
  ```
 chmod u+x bin/db-connection
  ```
- [Image of db-connect](assets/)
+ ![Image of db-connect](assets/week%204/db-connect.png)
 
  create a file on db called `seed.sql` and create inside bin a file called db-seed with following code
  ```
@@ -222,7 +222,7 @@ psql $URL cruddur < $seed_path
  ```
 
 
-and on `the seed.sql` insert this code
+and on `seed.sql` insert this code
 ```
 -- this file was manually created
 INSERT INTO public.users (display_name, handle, cognito_user_id)
@@ -238,15 +238,15 @@ VALUES
     current_timestamp + interval '10 day'
   )
 ```
-[Image of seed sql](assets/)
-[Image of schema sql FROM actvities](assets/)
-[Image of database explorer](assets/)
+![Image of seed sql](assets/week%204/seed%20sql.png)
+![Image of schema sql FROM actvities](assets/week%204/schema%20sql%20FROM%20activities.png)
+![Image of database explorer](assets/week%204/database%20explorer.png)
 
 
-# Creation connection with RDS
+# 5. Creating connection with RDS
 
-If you have stopped and rerun you gitpod/codespace enviroment, make sure to rerun the **db-create**, **db-schema-load** and **db-seed** in the order mention before running the db-connect. Make sure the containers are up and running first before making the connection!
-There will be an instruction later how to implement the automazation once you launch the CDE enviroment without launching.
+If you have stopped and rerun your gitpod/codespace enviroment, make sure to rerun the **db-create**, **db-schema-load** and **db-seed** in the order mention before running the db-connect. Make sure the containers are up and running first before making the connection!
+
 
 **How to see the connection**
 
@@ -266,8 +266,8 @@ changed the permission of the file:
 ```
  chmod u+x ./db-sessionsdb-sessions
 ```
-[Image of db-sessions](assets/)
-[Image of db-sessions](assets/)
+![Image of db-sessions](assets/week%204/db-sessions.png)
+![Image of db-sessions](assets/week%204/db-sessions%20with%20active%20and%20idle%20ones.png)
 
 create a file called `db-setup` under backend-flask/bin 
 
@@ -293,8 +293,8 @@ changed the permission of the file:
 ```
  chmod u+x ./db-setup
 ```
-[Image of db-setup](assets/)
-[Image of db-setup completed](assets/)
+![Image of db-setup](assets/week%204/db-setup.png)
+![Image of db-setup completed](assets/week%204/db-setup%20completed.png)
 
 ## Install driver for psql
 
@@ -309,7 +309,7 @@ and run the for this time the following command:
 pip install -r requirements.txt
 ```
 
-create a file under lib called **db.py**. this will be the connection for your backend
+create a file under lib called `db.py` this will be the connection for your backend
 ```
 from psycopg_pool import ConnectionPool
 import os
@@ -334,7 +334,7 @@ connection_url = os.getenv("CONNECTION_URL")
 pool = ConnectionPool(connection_url)
 ```
 
-and insert the library on **home_activities**
+and insert the library on `home_activities`
 ```
 from lib.db import pool,query_wrap_array
 ```
@@ -368,12 +368,13 @@ sql = """
       return json[0]
 ```
 
-from the file docker-compose change the **CONNECTIONS_URL** with the following
+from the file docker-compose change the `CONNECTION_URL` with the following
 ```
       CONNECTION_URL: "postgresql://postgres:password@db:5432/cruddur"
 ```
+![Image of Seed Data](assets/week%204/seed%20data.png)
 
-From the console active the RDS if it is in pause mode
+From the console active the RDS.
 
 create the PROD_CONNECTION_URL that will point to the RDS
 ```
@@ -384,7 +385,6 @@ create the local env and on gitpod/codespace
 export PROD_CONNECTION_URL="postgresql://userofthedb:masterpassword@endpointofthedb:5432/cruddur"
 gp env PROD_CONNECTION_URL="postgresql://userofthedb:masterpassword@endpointofthedb:5432/cruddur"
 ```
-**Note**: the password should not ending with ! as the url will be !@ and it could cause some error during the launching the command. if you experience an error "bash bla bla cruddur" you need to change the password for the DB of rds 
 
 In order to connect to the RDS instance we need to provide our Gitpod IP and whitelist for inbound traffic on port 5432.
 ```
@@ -398,6 +398,7 @@ gp env DB_SG_ID="sg-sdfsdf"
 export DB_SG_RULE_ID="sgr-sdfsdfsdf"
 gp env DB_SG_RULE_ID="sgr-sdfsdfsdf"
 ```
+![Image of update rule](assets/week%204/update%20rule.png)
 
 Since the ip address changes everytime, you need to change the ip on the security group of the rds instance
 here is the script to add to the file **rds-update-sg-rule** under bin
@@ -407,15 +408,15 @@ aws ec2 modify-security-group-rules \
     --security-group-rules "SecurityGroupRuleId=$DB_SG_RULE_ID,SecurityGroupRule={Description=GITPOD,IpProtocol=tcp,FromPort=5432,ToPort=5432,CidrIpv4=$GITPOD_IP/32}"
 ```
 
-on the file *gitpod.yml** add this line so it will get the ip of the instance
+on the file `gitpod.yml` add this line so it will get the ip of the instance
 ```
     before: |
       export GITPOD_IP=$(curl ifconfig.me)
       source  "$THEIA_WORKSPACE_ROOT/backend-flask/bin/rds-update-sg-rule"
 ```
 
-# Create Lambda
-Create a lambda in the region where are your services and create the same file under aws/lambdas calling the file cruddur-post-confirmation.py
+# 6. Create Lambda
+Create a lambda in the region of your services and create the same file under aws/lambdas calling the file `cruddur-post-confirmation.py`
 
 ```
 import json
@@ -459,30 +460,45 @@ def lambda_handler(event, context):
 
     return event
 ```
+![Image of Cruddur-post-Confirmation](assets/week%204/cruddur-post-confirmation.png)
+![Image of lambda function](assets/week%204/lambda%20function.png)
+![Image of lambda function code](assets/week%204/lambda%20code.png)
 
-the env var for the lambda will be **CONNECTION_URL** which has the variable of the **PROD_CONNECTION_URL** set on gitpod/codespace (example: PROD_CONNECTION_URL="postgresql://userofthedb:masterpassword@endpointofthedb:5432/cruddur)
+
+the env var for the lambda will be `CONNECTION_URL` which has the variable of the `PROD_CONNECTION_URL` set on gitpod/codespace
+
+(example: PROD_CONNECTION_URL="postgresql://userofthedb:masterpassword@endpointofthedb:5432/cruddur)
 
 Once you create the env var, create also the layer>add layers> select specify arn
 ```
 arn:aws:lambda:your region:898466741470:layer:psycopg2-py38:1
 ```
+![Image of Layer](assets/week%204/new%20layer.png)
 
 now it is time to create the trigger for cognito.
 from cognito,  select the user pool and go to the user pool properties to find the lambda triggers. follow the configuration according to the image below:
 
-![lambda triggers](assets/)
+![lambda triggers](assets/week%204/lambda%20triggers.png)
+![Image of verification error](assets/week%204/verification%20error.png)
+![Image of log](assets/week%204/logs.png)
+![Image of log error](assets/week%204/log%20error.png)
+![Image of time out error](assets/week%204/time%20out%20error.png)
 
-Make sure to attach the following policy **AWSLambdaVPCAccessExecutionRole** to the lambda role by going to configuration>permission> link under the Role name.
+Make sure to attach the following policy `AWSLambdaVPCAccessExecutionRole` to the lambda role by going to configuration>permission> link under the Role name.
 
-Once attached the policy, go to VPC and select the VPC where resides the RDS,
-the subnet mask (i suggest selecting just 1 as you could have timeout error during the execution of the lambda) and select the same security group of the rds. In my case i took the default vpc for my region as i deployed there, the subnetmask in my case eu-west-2a (make sure to verify where reside your rds by going to EC2>Network Interface under network & security)
+![Image of AWSLambdaVPCAccessExecutionRole](assets/week%204/AWSLambdaVPCAccessExecutionRole.png)
+
+Once attached the policy, go to VPC and select the VPC ,
+the subnet mask (it is suggested selecting just 1 as you could have timeout error during the execution of the lambda) and select the same security group of the rds. In my case i took the default vpc for my region as i deployed there, the subnetmask in my case us-east-1a (make sure to verify where reside your rds by going to EC2>Network Interface under network & security)
 and security group please make sure to insert the new inbound rule
 
-![Security Group](assets/)
+![Image of Permission Policies](assets/week%204/Permission%20Policies.png)
+![Image of users database](assets/week%204/users%20database.png)
+![Image of New ACtivities](assets/week%204/new%20activities.png)
 
 #Troubleshooting
 
-This command see if the connection is estabilished
+This command is to see if the connection is estabilished
 ```
 echo $CONNECTION_URL
 ```
