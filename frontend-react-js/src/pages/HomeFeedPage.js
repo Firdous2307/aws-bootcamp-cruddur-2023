@@ -23,7 +23,7 @@ export default function HomeFeedPage() {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("access_token")}`
         },
-          method: "GET"
+        method: "GET"
       });
       let resJson = await res.json();
       if (res.status === 200) {
@@ -37,6 +37,7 @@ export default function HomeFeedPage() {
   };
 
 
+  
   React.useEffect(()=>{
     //prevents double call
     if (dataFetchedRef.current) return;
