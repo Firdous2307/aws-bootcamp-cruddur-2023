@@ -128,7 +128,7 @@ def rollbar_test():
     return "Hello World!"
 
 @app.route("/api/message_groups", methods=['GET'])
-def data_message_groups():  
+def data_message_groups():
   access_token = extract_access_token(request.headers)
   try:
     claims = cognito_jwt_token.verify(access_token)
@@ -145,7 +145,7 @@ def data_message_groups():
     # unauthenicatied request
     app.logger.debug(e)
     return {}, 401
-
+    
 @app.route("/api/messages/@<string:handle>", methods=['GET'])
 def data_messages(handle):
   user_sender_handle = 'andrewbrown'
@@ -161,7 +161,7 @@ def data_messages(handle):
 @app.route("/api/messages", methods=['POST','OPTIONS'])
 @cross_origin()
 def data_create_message():
-  user_sender_handle = 'andrewbrown'
+  user_sender_handle = 'Firdous'
   user_receiver_handle = request.json['user_receiver_handle']
   message = request.json['message']
 
