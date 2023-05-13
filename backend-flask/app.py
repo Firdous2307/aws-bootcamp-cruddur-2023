@@ -43,12 +43,12 @@ import rollbar.contrib.flask
 from flask import got_request_exception
 
 # Configuring Logger to Use CloudWatch
-#LOGGER = logging.getLogger(__name__)
-#LOGGER.setLevel(logging.DEBUG)
-#cw_handler = watchtower.CloudWatchLogHandler(log_group='cruddur')
-#console_handler = logging.StreamHandler()
-#LOGGER.addHandler(cw_handler)
-#LOGGER.info("some message")
+LOGGER = logging.getLogger(__name__)
+LOGGER.setLevel(logging.DEBUG)
+cw_handler = watchtower.CloudWatchLogHandler(log_group='cruddur')
+console_handler = logging.StreamHandler()
+LOGGER.addHandler(cw_handler)
+LOGGER.info("some message")
 
 # HoneyComb -----------
 # Initialize tracing and an exporter that can send data to Honeycomb
@@ -98,11 +98,11 @@ cors = CORS(
 )
 
 # CloudWatch Logs --------
-#@app.after_request
-#def after_request(response):
-#    timestamp = strftime('[%Y-%b-%d %H:%M]')
-#    LOGGER.error('%s %s %s %s %s %s', timestamp, request.remote_addr, request.method, request.scheme, request.full_path, response.status)
-#    return response
+@app.after_request
+def after_request(response):
+    timestamp = strftime('[%Y-%b-%d %H:%M]')
+    LOGGER.error('%s %s %s %s %s %s', timestamp, request.remote_addr, request.method, request.scheme, request.full_path, response.status)
+    return response
 
 # RollBar ------
 rollbar_access_token = os.getenv('ROLLBAR_ACCESS_TOKEN')
