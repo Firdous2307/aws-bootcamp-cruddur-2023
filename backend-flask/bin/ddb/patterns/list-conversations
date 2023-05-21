@@ -45,7 +45,7 @@ query_params = {
   'KeyConditionExpression': 'pk = :pk AND begins_with(sk,:year)',
   'ScanIndexForward': False,
   'ExpressionAttributeValues': {
-     ':year': {'S': year },
+    ':year': {'S': year },
     ':pk': {'S': f"GRP#{my_user_uuid}"}
   },
   'ReturnConsumedCapacity': 'TOTAL'
