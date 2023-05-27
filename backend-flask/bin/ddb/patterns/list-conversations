@@ -4,7 +4,8 @@ import boto3
 import sys
 import json
 import os
-import datetime
+from datetime import datetime
+
 
 current_path = os.path.dirname(os.path.abspath(__file__))
 parent_path = os.path.abspath(os.path.join(current_path, '..', '..', '..'))
@@ -37,7 +38,6 @@ def get_my_user_uuid():
 
 my_user_uuid = get_my_user_uuid()
 print(f"my-uuid: {my_user_uuid}")
-
 year = str(datetime.now().year)
 # define the query parameters
 query_params = {

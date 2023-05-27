@@ -18,7 +18,7 @@ attrs = {
 if len(sys.argv) == 2:
   if "prod" in sys.argv[1]:
     attrs = {}
-ddb = boto3.client('dynamodb',**attrs)
+ddb = boto3.client('dynamodb', **attrs)
 
 def get_user_uuids():
   sql = """
