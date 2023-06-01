@@ -132,12 +132,12 @@ def rollbar_test():
 def data_message_groups():
   access_token = extract_access_token(request.headers)
   try:
-    claims = cognito_jwt_token.verify(access_token)
+    claims = cognito_jwt_token.verify(access_token) 
     # authenicatied request
     app.logger.debug("authenicated")
     app.logger.debug(claims)
     cognito_user_id = claims['sub']
-    model = MessageGroups.run(cognito_user_id=cognito_user_id)
+    model = MessageGroups.run(cognito_user_id = cognito_user_id)
     if model['errors'] is not None:
       return model['errors'], 422
     else:
@@ -173,7 +173,7 @@ def data_messages(message_group_uuid):
 @app.route("/api/messages", methods=['POST','OPTIONS'])
 @cross_origin()
 def data_create_message():
-  message_group_uuid   = request.json.get('message_group_uuid',None)
+  message_group_uuid = request.json.get('message_group_uuid',None)
   user_receiver_handle = request.json.get('handle',None)
   message = request.json['message']
   access_token = extract_access_token(request.headers)

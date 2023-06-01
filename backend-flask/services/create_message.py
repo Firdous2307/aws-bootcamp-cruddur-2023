@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta, timezone
 from lib.db import db
-from lib.ddb import Ddb
+from lib.ddb import ddb
 
 
 class CreateMessage:
@@ -52,10 +52,10 @@ class CreateMessage:
     print("USERS=[other-user]==")
     print(other_user)
 
-    ddb = Ddb.client()
+    ddb = ddb.client()
 
     if (mode == "update"):
-        data = Ddb.create_message(
+        data = ddb.create_message(
           client=ddb,
           message_group_uuid=message_group_uuid,
           message=message,
@@ -64,7 +64,7 @@ class CreateMessage:
           my_user_handle=my_user['handle']
         )
     elif (mode == "create"):
-        data = Ddb.create_message_group(
+        data = ddb.create_message_group(
           client=ddb,
           message=message,
           my_user_uuid=my_user['uuid'],

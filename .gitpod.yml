@@ -31,6 +31,8 @@ vscode:
     
     - cweijan.vscode-postgresql-client2
 
+    - ms-python.python
+
 ports:
   - name: frontend
     port: 3000

@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta, timezone
 
-from lib.ddb import Ddb
+from lib.ddb import ddb
 from lib.db import db
 
 class MessageGroups:
@@ -17,9 +17,11 @@ class MessageGroups:
 
     print(f"UUID: {my_user_uuid}")
 
-    ddb = Ddb.client()
-    data = Ddb.list_message_groups(ddb, my_user_uuid)
+    ddb_client = ddb.client()
+    data = ddb.list_message_groups(ddb_client, my_user_uuid)
     print("list_message_groups:",data)
 
     model['data'] = data
+
+    
     return model
