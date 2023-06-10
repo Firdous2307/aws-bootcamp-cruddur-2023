@@ -26,11 +26,7 @@ export default function ActivityForm(props) {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
-      body: JSON.stringify({
-          user_handle: props.user_handle.handle,
-          message: message,
-          ttl: ttl
-      }),    
+        body: JSON.stringify(json)     
       });
       let data = await res.json();
       if (res.status === 200) {
