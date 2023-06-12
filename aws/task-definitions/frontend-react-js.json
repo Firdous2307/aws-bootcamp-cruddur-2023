@@ -10,21 +10,8 @@
     ],
     "containerDefinitions": [
       {
-        "name": "xray",
-        "image": "public.ecr.aws/xray/aws-xray-daemon",
-        "essential": true,
-        "user": "1337",
-        "portMappings": [
-          {
-            "name": "xray",
-            "containerPort": 2000,
-            "protocol": "udp"
-          }
-        ]
-      },
-      {
         "name": "frontend-react-js",
-        "image": "173482565935.dkr.ecr.AWS_REGION.amazonaws.com/frontend-react-js",
+        "image": "173482565935.dkr.ecr.us-east-1.amazonaws.com/frontend-react-js:latest",
         "essential": true,
         "healthCheck": {
           "command": [
