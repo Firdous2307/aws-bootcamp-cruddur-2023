@@ -11,10 +11,8 @@ import MessageGroupPage from './pages/MessageGroupPage';
 import MessageGroupNewPage from './pages/MessageGroupNewPage';
 import ConfirmationPage from './pages/ConfirmationPage';
 import React from 'react';
-import {
-  createBrowserRouter,
-  RouterProvider
-} from "react-router-dom";
+import { Amplify, Auth } from 'aws-amplify';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 const params = {
   "AWS_PROJECT_REGION": "us-east-1",
