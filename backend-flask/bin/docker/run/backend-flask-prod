@@ -1,4 +1,6 @@
 #! /usr/bin/bash
+
+
 docker run --rm \
 -p 4567:4567 \
 --env AWS_ENDPOINT_URL="http://dynamodb-local:8000" \
