@@ -10,8 +10,9 @@ printf "${CYAN}==== ${LABEL}${NO_COLOR}\n"
 ABS_PATH=$(readlink -f "$0")
 bin_path=$(dirname $ABS_PATH)
 
-source "$bin_path/db/drop"
-source "$bin_path/db/create"
-source "$bin_path/db/schema-load"
-source "$bin_path/db/seed"
-python "$bin_path/db/update_cognito_user_ids"
+source "$DB_path/drop"
+source "$DB_path/create"
+source "$DB_path/schema-load"
+source "$DB_path/seed"
+
+python "$DB_path/update_cognito_user_ids"
