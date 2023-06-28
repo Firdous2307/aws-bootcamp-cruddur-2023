@@ -1,7 +1,7 @@
 #! /usr/bin/bash
 cd /workspace/aws-bootcamp-cruddur-2023/frontend-react-js
 
-REACT_APP_BACKEND_URL="https://cruddur-alb-76015129.us-east-1.elb.amazonaws.com:4567/" \
+REACT_APP_BACKEND_URL="http://cruddur-alb-39833037.us-east-1.elb.amazonaws.com:4567/" \
 REACT_APP_AWS_PROJECT_REGION="${AWS_DEFAULT_REGION}" \
 REACT_APP_AWS_COGNITO_REGION="${AWS_DEFAULT_REGION}" \
 REACT_APP_AWS_USER_POOLS_ID="${AWS_DEFAULT_REGION}_4wUTWpByD" \
