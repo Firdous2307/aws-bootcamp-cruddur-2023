@@ -8,11 +8,11 @@ PROJECT_PATH=$(dirname $BIN_PATH)
 FRONTEND_REACT_JS_PATH="$PROJECT_PATH/frontend-react-js"
 
 docker build \
---build-arg REACT_APP_BACKEND_URL="https://4567-$GITPOD_WORKSPACE_ID.$GITPOD_WORKSPACE_CLUSTER_HOST" \
+--build-arg REACT_APP_BACKEND_URL="https://api.mohammedfirdous.works" \
 --build-arg REACT_APP_AWS_PROJECT_REGION="$AWS_DEFAULT_REGION" \
 --build-arg REACT_APP_AWS_COGNITO_REGION="$AWS_DEFAULT_REGION" \
 --build-arg REACT_APP_AWS_USER_POOLS_ID="us-east-1_4wUTWpByD" \
 --build-arg REACT_APP_CLIENT_ID="1vcd8ic8rll7vgf7t8ebrl2qdp" \
 -t frontend-react-js \
--f "$FRONTEND_REACT_JS_PATH/Dockerfile.prod" \
-"$FRONTEND_REACT_JS_PATH/."
+-f Dockerfile.prod \
+.
