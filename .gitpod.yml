@@ -26,18 +26,19 @@ tasks:
     before: |
       curl "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb" -o "session-manager-plugin.deb"
       sudo dpkg -i session-manager-plugin.deb
-      cd backend-flask    
+      cd backend-flask           
+  - name: react-js
+    command: |
+      source  "$THEIA_WORKSPACE_ROOT/bin/frontend/generate-env"    
+      cd frontend-react-js
+      npm i
   - name: cdk
     before: |
       cd thumbing-serverless-cdk
       cp .env.example .env
       npm i
-      npm install aws-cdk -g         
-  - name: react-js
-    command: |
-      source  "$THEIA_WORKSPACE_ROOT/bin/frontend/generate-env"    
-      cd frontend-react-js
-      npm i         
+      npm install aws-cdk -g 
+                  
 vscode:
   extensions:
     - 42Crunch.vscode-openapi
