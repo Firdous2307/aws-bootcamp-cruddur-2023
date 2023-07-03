@@ -5,6 +5,7 @@ BACKEND_PATH=$(dirname $ABS_PATH)
 BIN_PATH=$(dirname $BACKEND_PATH)
 PROJECT_PATH=$(dirname $BIN_PATH)
 ENVFILE_PATH="$PROJECT_PATH/backend-flask.env"
+echo $ENVFILE_PATH
 
 docker run --rm \
   --env-file $ENVFILE_PATH \
