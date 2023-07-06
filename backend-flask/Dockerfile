@@ -26,6 +26,8 @@ COPY . .
 
 EXPOSE ${PORT}
 
+ENV PYTHONUNBUFFERED=1
+
 # CMD (Command)
 # 2
 
