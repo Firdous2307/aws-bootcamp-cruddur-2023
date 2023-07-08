@@ -44,12 +44,12 @@ import rollbar.contrib.flask
 from flask import got_request_exception
 
 # Configuring Logger to Use CloudWatch
-LOGGER = logging.getLogger(__name__)
-LOGGER.setLevel(logging.DEBUG)
-cw_handler = watchtower.CloudWatchLogHandler(log_group='cruddur')
-console_handler = logging.StreamHandler()
-LOGGER.addHandler(cw_handler)
-LOGGER.info("some message")
+#LOGGER = logging.getLogger(__name__)
+#LOGGER.setLevel(logging.DEBUG)
+#cw_handler = watchtower.CloudWatchLogHandler(log_group='cruddur')
+#console_handler = logging.StreamHandler()
+#LOGGER.addHandler(cw_handler)
+#LOGGER.info("some message")
 
 # HoneyComb -----------
 # Initialize tracing and an exporter that can send data to Honeycomb
@@ -280,7 +280,8 @@ def data_show_activity(activity_uuid):
 @app.route("/api/activities/<string:activity_uuid>/reply", methods=['POST','OPTIONS'])
 @cross_origin()
 def data_activities_reply(activity_uuid):
-   # user_handle  = 'andrewbrown'
+  user_handle  = 'Firdous'
+  # user_handle  = 'andrewbrown'
   message = request.json['message']
   model = CreateReply.run(message, user_handle, activity_uuid)
   if model['errors'] is not None:

@@ -23,7 +23,7 @@ export default function HomeFeedPage() {
       const access_token = localStorage.getItem("access_token")
       const res = await fetch(backend_url, {
         headers: {
-        Authorization: `Bearer ${access_token}`
+          Authorization: `Bearer ${access_token}`
         },
         method: "GET"
       });
@@ -66,7 +66,8 @@ export default function HomeFeedPage() {
           setActivities={setActivities} 
           activities={activities} 
         />
-         <div className='activity_feed'>
+
+          <div className='activity_feed'>
           <div className='activity_feed_heading'>
             <div className='title'>Home</div>
           </div>
@@ -75,7 +76,8 @@ export default function HomeFeedPage() {
             setPopped={setPoppedReply} 
             activities={activities} 
           />
-        </div>     </div>
+        </div> 
+       </div>
       <DesktopSidebar user={user} />
     </article>
   );
