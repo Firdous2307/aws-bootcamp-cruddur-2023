@@ -13,6 +13,10 @@ export default function ProfileForm(props) {
     setDisplayName(props.profile.display_name);
   }, [props.profile])
 
+  const s3uploadkey = async (event)=> {
+
+  }
+
   const onsubmit = async (event) => {
     event.preventDefault();
     try {
@@ -72,6 +76,10 @@ export default function ProfileForm(props) {
             </div>
           </div>
           <div className="popup_content">
+            
+          <div className="upload" onClick={s3uploadkey}>
+              Upload Avatar
+            </div>
             <div className="field display_name">
               <label>Display Name</label>
               <input
