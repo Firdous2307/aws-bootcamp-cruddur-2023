@@ -48,17 +48,16 @@ class Db:
     is_returning_id = re.search(pattern, sql)
 
     try:
-       with self.pool.connection() as conn:
+      with self.pool.connection() as conn:
         cur =  conn.cursor()
         cur.execute(sql,params)
         if is_returning_id:
           returning_id = cur.fetchone()[0]
         conn.commit() 
         if is_returning_id:
-          return returning_id 
+          return returning_id
     except Exception as err:
       self.print_sql_err(err)
-      
   # when we want to return a json object
   def query_array_json(self,sql,params={},verbose=True):
     if verbose:
@@ -75,25 +74,28 @@ class Db:
     if verbose:
       self.print_sql('json',sql,params)
       self.print_params(params)
+      
     wrapped_sql = self.query_wrap_object(sql)
-    
+
     with self.pool.connection() as conn:
       with conn.cursor() as cur:
         cur.execute(wrapped_sql,params)
         json = cur.fetchone()
         if json == None:
-          "{}"
+          return "{}"
         else:
           return json[0]
   def query_value(self,sql,params={},verbose=True):
     if verbose:
       self.print_sql('value',sql,params)
-      
     with self.pool.connection() as conn:
       with conn.cursor() as cur:
         cur.execute(sql,params)
         json = cur.fetchone()
-        return json[0]          
+        if json == None:
+          return None
+        else:
+          return json[0]
   def query_wrap_object(self,template):
     sql = f"""
     (SELECT COALESCE(row_to_json(object_row),'{{}}'::json) FROM (

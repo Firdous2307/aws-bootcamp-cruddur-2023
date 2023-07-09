@@ -65,6 +65,7 @@ export default function ProfileForm(props) {
       console.log(err);
     }
   }
+
   const onsubmit = async (event) => {
     event.preventDefault();
     try {
@@ -117,9 +118,9 @@ export default function ProfileForm(props) {
           className='profile_form popup_form'
           onSubmit={onsubmit}
         >
-          <div class="popup_heading">
-            <div class="popup_title">Edit Profile</div>
-            <div className='submit'>
+             <div className="popup_heading">
+            <div className="popup_title">Edit Profile</div>
+              <div className='submit'>
               <button type='submit'>Save</button>
             </div>
           </div>
@@ -128,6 +129,7 @@ export default function ProfileForm(props) {
           <div className="upload" onClick={s3uploadkey}>
               Upload Avatar
             </div>
+          <input type="file" name="avatarupload" onChange={s3upload} />
             <div className="field display_name">
               <label>Display Name</label>
               <input
