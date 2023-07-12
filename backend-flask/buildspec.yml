@@ -5,7 +5,7 @@ phases:
     runtime-versions:
       docker: 20
     commands:
-      - echo "cd into $CODEBUILD_SRC_DIR/backend"
+      - echo "cd into $CODEBUILD_SRC_DIR/backend-flask"
       - cd $CODEBUILD_SRC_DIR/backend-flask
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $IMAGE_URL
   build:
@@ -30,6 +30,8 @@ env:
     CONTAINER_NAME: backend-flask
     IMAGE_URL: 173482565935.dkr.ecr.us-east-1.amazonaws.com
     REPO_NAME: backend-flask:latest
+  
+
 artifacts:
   files:
     - imagedefinitions.json
