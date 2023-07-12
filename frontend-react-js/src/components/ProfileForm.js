@@ -15,7 +15,6 @@ export default function ProfileForm(props) {
   const s3uploadkey = async (extension)=> {
     console.log('ext',extension)
     try {
-      console.log('s3upload')
       const gateway_url = `${process.env.REACT_APP_API_GATEWAY_ENDPOINT_URL}/avatars/key_upload`
       await getAccessToken()
       const access_token = localStorage.getItem("access_token")
@@ -48,15 +47,13 @@ export default function ProfileForm(props) {
     const filename = file.name
     const size = file.size
     const type = file.type
-    const preview_image_url = URL.createObjectURL(file)
+    //const preview_image_url = URL.createObjectURL(file)
     console.log(filename,size,type)
-
     const fileparts = filename.split('.')
     const extension = fileparts[fileparts.length-1]
     const presignedurl = await s3uploadkey(extension)
     try {
       console.log('s3upload')
-      const backend_url = ""
       const res = await fetch(presignedurl, {
         method: "PUT",
         body: file,
@@ -93,6 +90,7 @@ export default function ProfileForm(props) {
       });
       let data = await res.json();
       if (res.status === 200) {
+   
         setBio(null)
         setDisplayName(null)
         props.setPopped(false)
@@ -125,15 +123,15 @@ export default function ProfileForm(props) {
           className='profile_form popup_form'
           onSubmit={onsubmit}
         >
-             <div className="popup_heading">
+          <div className="popup_heading">
             <div className="popup_title">Edit Profile</div>
-              <div className='submit'>
+            <div className='submit'>
               <button type='submit'>Save</button>
             </div>
           </div>
           <div className="popup_content">
-            
-          <input type="file" name="avatarupload" onChange={s3upload} />
+            <input type="file" name="avatarupload" onChange={s3upload} />
+
             <div className="field display_name">
               <label>Display Name</label>
               <input
