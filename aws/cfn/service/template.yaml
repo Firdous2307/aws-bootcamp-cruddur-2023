@@ -102,10 +102,12 @@ Resources:
       DesiredCount: 1
       EnableECSManagedTags: true
       EnableExecuteCommand: true
-      HealthCheckGracePeriodSeconds: 0
+      HealthCheckGracePeriodSeconds: 100
       LaunchType: FARGATE
       LoadBalancers:
-        - TargetGroupArn: 'arn:aws:elasticloadbalancing:us-east-1:173482565935:targetgroup/cruddur-backend-flask-tg/7042a2471f197989'
+        - TargetGroupArn:
+            Fn::ImportValue:
+              !Sub "${ClusterStack}BackendTGArn"
           ContainerName: 'backend-flask'
           ContainerPort: !Ref ContainerPort
       NetworkConfiguration:
@@ -120,11 +122,21 @@ Resources:
                   !Sub "${NetworkingStack}PublicSubnetIds"
       PlatformVersion: LATEST
       PropagateTags: SERVICE
-      ServiceRegistries:
-        - RegistryArn: !Sub 'arn:aws:servicediscovery:${AWS::Region}:${AWS::AccountId}:service/srv-cruddur-backend-flask'
-          Port: !Ref ContainerPort
-          ContainerName: 'backend-flask'
-          ContainerPort: !Ref ContainerPort
+      ServiceConnectConfiguration:
+        Enabled: true
+        Namespace: "cruddur"
+        # TODO - If you want to log
+        # LogConfiguration
+        Services:
+          - DiscoveryName: backend-flask
+            PortName: backend-flask
+            ClientAliases:
+              - Port: !Ref ContainerPort
+      #ServiceRegistries:
+      #  - RegistryArn: !Sub 'arn:aws:servicediscovery:${AWS::Region}:${AWS::AccountId}:service/srv-cruddur-backend-flask'
+      #    Port: !Ref ContainerPort
+      #    ContainerName: 'backend-flask'
+      #    ContainerPort: !Ref ContainerPort\         
       ServiceName: !Ref ServiceName
       TaskDefinition: !Ref TaskDefinition
 
@@ -263,3 +275,8 @@ Resources:
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/CloudWatchLogsFullAccess
         - arn:aws:iam::aws:policy/AWSXRayDaemonWriteAccess
+Outputs:
+  ServiceSecurityGroupId:
+    Value: !GetAtt ServiceSG.GroupId
+    Export:
+      Name: !Sub "${AWS::StackName}ServiceSecurityGroupId"
