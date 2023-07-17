@@ -1,0 +1,10 @@
+[deploy]
+bucket = 'cfn-artifacts-newname'
+region = 'us-east-1'
+
+stack_name = 'CrdFrontend'
+
+[parameters]
+CertificateArn = 'arn:aws:acm:us-east-1:173482565935:certificate/98acf671-e41d-4069-96a4-8f856148fd3b'
+WwwBucketName = 'www.mohammedfirdous.works'
+RootBucketName = 'mohammedfirdous.works'
