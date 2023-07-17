@@ -88,7 +88,7 @@ export default function ProfileForm(props) {
           display_name: displayName
         }),
       });
-      let data = await res.json();
+      //let data = await res.json();
       if (res.status === 200) {
    
         setBio(null)
