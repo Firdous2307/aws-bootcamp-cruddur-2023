@@ -6,4 +6,4 @@ stack_name = 'CrdSrvBackendFlask'
 
 [parameters]
 EnvFrontendUrl = 'https://mohammedfirdous.works'
-EnvBackendUrl = 'https://capi.mohammedfirdous.works'
+EnvBackendUrl = 'https://api.mohammedfirdous.works'
