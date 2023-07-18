@@ -17,7 +17,7 @@ Parameters:
   ArtifactBucketName:
     Type: String  
 Resources:
-  CodeBuildBakeImageStack:
+  Codebuild:
     # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-stack.html
     Type: AWS::CloudFormation::Stack
     Properties:
@@ -67,7 +67,7 @@ Resources:
               OutputArtifacts:
                 - Name: ImageDefinition
               Configuration:
-                ProjectName: !GetAtt CodeBuildBakeImageStack.Outputs.CodeBuildProjectName
+                ProjectName: !GetAtt  Codebuild.Outputs.CodeBuildProjectName
                 BatchEnabled: false
         # https://docs.aws.amazon.com/codepipeline/latest/userguide/action-reference-ECS.html
         - Name: Deploy
@@ -87,9 +87,11 @@ Resources:
                 ClusterName:
                   Fn::ImportValue:
                     !Sub ${ClusterStack}ClusterName
-                ServiceName:
-                  Fn::ImportValue:
-                    !Sub ${ServiceStack}ServiceName
+                # We decided not use a cross-stack so we can tear
+                # down a service seperate from it.
+                ServiceName: backend-flask
+                #  Fn::ImportValue:
+                #    !Sub ${ServiceStack}ServiceName
   CodePipelineRole:
     Type: AWS::IAM::Role
     Properties:
@@ -161,4 +163,4 @@ Resources:
                     - ':'
                     - !Ref AWS::AccountId
                     - ':project/'
-                    - !GetAtt CodeBuildBakeImageStack.Outputs.CodeBuildProjectName
+                    - !GetAtt Codebuild.Outputs.CodeBuildProjectName

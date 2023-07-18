@@ -1,0 +1,20 @@
+{
+    "yaml.schemas": {
+      "/workspace/aws-bootcamp-cruddur-2023/aws/cfn/networking/template.yaml": "template.yaml",
+    },
+    "yaml.customTags": [
+      "!If",
+      "!If sequence",
+      "!Equals sequence",
+      "!FindInMap sequence",
+      "!GetAtt",
+      "!GetAZs",
+      "!If",
+      "!ImportValue",
+      "!Join sequence",
+      "!Ref",
+      "!Select sequence",
+      "!Split sequence",
+      "!Sub"
+    ]
+  }

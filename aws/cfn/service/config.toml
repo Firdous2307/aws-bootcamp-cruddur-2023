@@ -2,3 +2,8 @@
 bucket = 'cfn-artifacts-newname'
 region = 'us-east-1'
 stack_name = 'CrdSrvBackendFlask'
+
+
+[parameters]
+EnvFrontendUrl = 'https://mohammedfirdous.works'
+EnvBackendUrl = 'https://capi.mohammedfirdous.works'
