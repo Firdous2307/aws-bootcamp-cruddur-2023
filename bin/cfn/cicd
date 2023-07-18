@@ -5,7 +5,6 @@ CFN_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/cicd/template.yaml"
 CONFIG_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/cicd/config.toml"
 PACKAGED_PATH="/workspace/aws-bootcamp-cruddur-2023/tmp/packaged-template.yaml"
 PARAMETERS=$(cfn-toml params v2 -t $CONFIG_PATH)
-
 echo $CFN_PATH
 
 cfn-lint $CFN_PATH
