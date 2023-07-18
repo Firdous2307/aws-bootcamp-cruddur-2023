@@ -453,12 +453,11 @@ In `CruddurAvatarUpload`
 
 - Upload the code from [function.rb](https://github.com/Firdous2307/aws-bootcamp-cruddur-2023/blob/main/aws/lambdas/cruddur-upload-avatar/function.rb), ensuring it has the correct GitPod frontend URL set in `Access-Control-Allow-Origin`
   
-- Set an environment variable `UPLOADS_BUCKET_NAME` with `tajarba-uploaded-avatars` the location where avatars are to be uploaded to
+- Set an environment variable `UPLOADS_BUCKET_NAME` with `mohammedfirdous-uploaded-avatars` the location where avatars are to be uploaded to
 
 - Edit `runtime settings` to have the handler set as `function.handler`
   
 - Modify the current permissions policy and attach a new inline policy `PresignedUrlAvatarPolicy` using this [S3 Policy](https://github.com/Firdous2307/aws-bootcamp-cruddur-2023/blob/main/aws/policies/s3-upload-avatar-presigned-url-policy.json)
-
 
 
 
