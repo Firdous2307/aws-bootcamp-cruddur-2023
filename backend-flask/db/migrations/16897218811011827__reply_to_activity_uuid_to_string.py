@@ -1,5 +1,6 @@
 from lib.db import db
-class ReplyToActivityUuidStringMigration:
+
+class ReplyToActivityUuidToStringMigration:
   def migrate_sql():
     data = """
     ALTER TABLE activities
