@@ -2,6 +2,7 @@ import './ActivityForm.css';
 import React from "react";
 import process from 'process';
 import {ReactComponent as BombIcon} from './svg/bomb.svg';
+import {getAccessToken} from '../lib/CheckAuth';
 
 export default function ActivityForm(props) {
   const [count, setCount] = React.useState(0);
@@ -22,7 +23,7 @@ export default function ActivityForm(props) {
       const res = await fetch(backend_url, {
         method: "POST",
         headers: {
-          'Accept': 'application/json',
+          'Authorization': `Bearer ${access_token}`,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
