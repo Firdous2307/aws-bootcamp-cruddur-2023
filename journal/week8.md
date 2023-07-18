@@ -169,3 +169,328 @@ Create a distribution by:
 Once the CloudFront distribution has been created, we need to copy it's bucket policy.
 
 This policy needs to be applied to the bucket `assets.mohammedfirdous.works` under `Permissions` -> `Bucket Policy`
+
+
+When uploading a new version of an image until it expires it will keep displaying the old version of the file. To stop this from happening we need to enable [invalidation](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Invalidation.html)
+
+- In `Cloudfront` select the cloudfront distribution
+- Select `Invalidations`
+- Add the pattern `/*` and click `Create Invalidation`
+- It will take a minute or so for the change to take effect
+
+
+
+## Backend and Frontend for Profile Page
+
+For the backend, update/create the following scripts ([repo](https://github.com/Firdous2307/aws-bootcamp-cruddur-2023/tree/main/frontend-react-js)
+
+- `backend-flask/db/sql/users/show.sql` to get info about user
+- `backend-flask/db/sql/users/update.sql` to update bio
+- `backend-flask/services/user_activities.py`
+- `backend-flask/services/update_profile.py`
+- `backend-flask/app.py`
+
+For the frontend, update/create the following scripts ([repo](https://github.com/Firdous2307/aws-bootcamp-cruddur-2023/tree/main/frontend-react-js)
+
+- `frontend-react-js/src/components/ActivityFeed.js`
+- `frontend-react-js/src/components/CrudButton.js`
+- `frontend-react-js/src/components/DesktopNavigation.js` 
+- `frontend-react-js/src/components/EditProfileButton.css`
+- `frontend-react-js/src/components/EditProfileButton.js`
+- `frontend-react-js/src/components/Popup.css`
+- `frontend-react-js/src/components/ProfileAvatar.css`
+- `frontend-react-js/src/components/ProfileAvatar.js`
+- `frontend-react-js/src/components/ProfileForm.css`
+- `frontend-react-js/src/components/ProfileForm.js` 
+- `frontend-react-js/src/components/ProfileHeading.css`
+- `frontend-react-js/src/components/ProfileHeading.js` 
+- `frontend-react-js/src/components/ProfileInfo.js`
+- `frontend-react-js/src/components/ReplyForm.css`
+- `frontend-react-js/src/pages/HomeFeedPage.js`
+- `frontend-react-js/src/pages/NotificationsFeedPage.js`
+- `frontend-react-js/src/pages/UserFeedPage.js` 
+- `frontend-react-js/src/lib/CheckAuth.js`
+- `frontend-react-js/src/App.js`
+- `frontend-react-js/jsconfig.json`
+
+
+## DB Migration
+
+In our Previous postgresql, there was no column named `bio`, therefore migration is required.
+
+Create an empty `backend-flask/db/migrations/.keep`, and an executable script `bin/generate/migration` 
+
+```python
+#!/usr/bin/env python3
+import time
+import os
+import sys
+
+if len(sys.argv) == 2:
+  name = sys.argv[1]
+else:
+  print("pass a filename: eg. ./bin/generate/migration add_bio_column")
+  exit(0)
+
+timestamp = str(time.time()).replace(".","")
+
+filename = f"{timestamp}_{name}.py"
+
+# covert undername name to title case eg. add_bio_column -> AddBioColumn
+klass = name.replace('_', ' ').title().replace(' ','')
+
+file_content = f"""
+from lib.db import db
+class {klass}Migration:
+  def migrate_sql():
+    data = \"\"\"
+    \"\"\"
+    return data
+  def rollback_sql():
+    data = \"\"\"
+    \"\"\"
+    return data
+
+  def migrate():
+    db.query_commit({klass}Migration.migrate_sql(),{{
+    }})
+
+  def rollback():
+    db.query_commit({klass}Migration.rollback_sql(),{{
+    }})
+
+    
+migration = AddBioColumnMigration
+"""
+#remove leading and trailing new lines
+file_content = file_content.lstrip('\n').rstrip('\n')
+
+current_path = os.path.dirname(os.path.abspath(__file__))
+file_path = os.path.abspath(os.path.join(current_path, '..', '..','backend-flask','db','migrations',filename))
+print(file_path)
+
+with open(file_path, 'w') as f:
+  f.write(file_content)
+  
+```  
+  
+
+Run `./bin/generate/migration add_bio_column`
+- a python script such as `backend-flask/db/migrations/16888600785058737_add_bio_column.py` is generated. 
+
+Also, Update `backend-flask/db/schema.sql`, and update `backend-flask/lib/db.py` with the option of verbose.
+
+Create executable scripts `bin/db/migrate` and `bin/db/rollback`.
+
+In the `bin/db/migrate` script;
+
+``` python
+#!/usr/bin/env python3
+
+import os
+import sys
+import glob
+import re
+import time
+import importlib
+
+current_path = os.path.dirname(os.path.abspath(__file__))
+parent_path = os.path.abspath(os.path.join(current_path, '..', '..','backend-flask'))
+sys.path.append(parent_path)
+from lib.db import db
+
+def get_last_successful_run():
+    sql = """
+    SELECT last_successful_run
+    FROM public.schema_information
+    LIMIT 1
+    """
+    result = db.query_value(sql, {}, verbose=True)
+    return int(result) if result is not None else 0
+
+def set_last_successful_run(value):
+  sql = """
+  UPDATE schema_information
+  SET last_successful_run = %(last_successful_run)s
+  WHERE id = 1
+  """
+  db.query_commit(sql,{'last_successful_run': value},verbose=True)
+  return value
+
+last_successful_run = get_last_successful_run()
+
+migrations_path = os.path.abspath(os.path.join(current_path, '..', '..','backend-flask','db','migrations'))
+sys.path.append(migrations_path)
+migration_files = glob.glob(f"{migrations_path}/*")
+
+
+for migration_file in migration_files:
+  filename = os.path.basename(migration_file)
+  module_name = os.path.splitext(filename)[0]
+  match = re.match(r'^\d+', filename)
+  if match:
+    file_time = int(match.group())
+    if last_successful_run <= file_time:
+      mod = importlib.import_module(module_name)
+      print('running migration: ',module_name)
+      mod.migration.migrate()
+      timestamp = str(time.time()).replace(".","")
+      last_successful_run = set_last_successful_run(timestamp)
+```
+
+
+
+In the `bin/db/rollback`
+
+```python
+#!/usr/bin/env python3
+
+import os
+import sys
+import glob
+import re
+import time
+import importlib
+
+current_path = os.path.dirname(os.path.abspath(__file__))
+parent_path = os.path.abspath(os.path.join(current_path, '..', '..','backend-flask'))
+sys.path.append(parent_path)
+from lib.db import db
+
+def get_last_successful_run():
+    sql = """
+    SELECT last_successful_run
+    FROM public.schema_information
+    LIMIT 1
+    """
+    result = db.query_value(sql, {}, verbose=False)
+    return int(result) if result is not None else 0
+
+def set_last_successful_run(value):
+  sql = """
+  UPDATE schema_information
+  SET last_successful_run = %(last_successful_run)s
+  WHERE id = 1
+  """
+  db.query_commit(sql,{'last_successful_run': value})
+  return value
+
+last_successful_run = get_last_successful_run()
+
+migrations_path = os.path.abspath(os.path.join(current_path, '..', '..','backend-flask','db','migrations'))
+sys.path.append(migrations_path)
+migration_files = glob.glob(f"{migrations_path}/*")
+
+
+last_migration_file = None
+for migration_file in migration_files:
+  if last_migration_file == None:
+    filename = os.path.basename(migration_file)
+    module_name = os.path.splitext(filename)[0]
+    match = re.match(r'^\d+', filename)
+    if match:
+      file_time = int(match.group())
+      print("====")
+      print(last_successful_run, file_time)
+      print(last_successful_run > file_time)
+      if last_successful_run > file_time:
+        last_migration_file = module_name
+        mod = importlib.import_module(module_name)
+        print('===== rolling back: ',module_name)
+        mod.migration.rollback()
+        set_last_successful_run(file_time)
+
+print(last_migration_file)
+
+```
+
+If we run `./bin/db/migrate`, a new column called bio will be created in the db table of `users`.
+
+
+
+## Avatar Upload Implementation
+
+We need to create an API endpoint, which invoke a presigned URL like `https://<API_ID>.execute-api.<AWS_REGION>.amazonaws.com`. This presigned URL can give access to the S3 bucket (`mohammedfirdous-uploaded-avatars`), and can deliver the uploaded image to the bucket.
+
+### Pre-Requisites for Avatar Upload
+
+- Create a lambda function to authorise the currently logged in user `aws/lambdas/lambda-authorizer`
+- Create a lambda function to upload the image `aws/lambdas/cruddur-upload-avatar/`
+- Create an API gateway which invokes the lambda functions.
+
+### Implementing the Lambda Function called CruddurAvatarUpload
+
+```sh
+cd /workspace/aws-bootcamp-cruddur-2023/
+mkdir -p aws/lambdas/cruddur-upload-avatar/
+cd aws/lambdas/cruddur-upload-avatar/
+touch function.rb
+bundle init
+```
+
+Run `bundle init`; edit the generated `Gemfile`, then run `bundle install` and `bundle exec ruby function.rb`; a presigned url can be generated.[repo](https://github.com/Firdous2307/aws-bootcamp-cruddur-2023/blob/main/aws/lambdas/cruddur-upload-avatar/function.rb)
+
+
+### Implement the Lambda Function called Lambda-Authorizer
+
+
+```sh
+cd /workspace/aws-bootcamp-cruddur-2023/
+mkdir -p aws/lambdas/lambda-authorizer/
+cd aws/lambdas/lambda-authorizer/
+touch index.js
+npm init -y
+npm install aws-jwt-verify --save
+```
+In `aws/lambdas/lambda-authorizer/`, create `index.js`, run `npm install aws-jwt-verify --save`, and download everything in this folder into a zip file (you can zip by command `zip -r lambda_authorizer.zip .`), which will be uploaded into `CruddurApiGatewayLambdaAuthorizer`.
+
+
+## Creating two Functions
+
+In `CruddurAvatarUpload`
+
+- Create a Ruby Application named `CruddurAvatarUpload`
+
+- Upload the code from [function.rb](https://github.com/Firdous2307/aws-bootcamp-cruddur-2023/blob/main/aws/lambdas/cruddur-upload-avatar/function.rb), ensuring it has the correct GitPod frontend URL set in `Access-Control-Allow-Origin`
+  
+- Set an environment variable `UPLOADS_BUCKET_NAME` with `tajarba-uploaded-avatars` the location where avatars are to be uploaded to
+
+- Edit `runtime settings` to have the handler set as `function.handler`
+  
+- Modify the current permissions policy and attach a new inline policy `PresignedUrlAvatarPolicy` using this [S3 Policy](https://github.com/Firdous2307/aws-bootcamp-cruddur-2023/blob/main/aws/policies/s3-upload-avatar-presigned-url-policy.json)
+
+
+
+
+In `CruddurApiGatewayLambdaAuthorizer`
+
+- Create a Node.js Application named `CruddurApiGatewayLambdaAuthorizer`
+  
+- upload `lambda_authorizer.zip` into the code source. If packaged and uploaded correctly.
+  
+- Set the environment variables `USER_POOL_ID` and `CLIENT_ID` with your Cognito clients `USER_POOL_ID` and `AWS_COGNITO_USER_POOL_CLIENT_ID` respectively.
+
+### Update S3 Bucket COR Policy
+
+- Under the permissions for `tajarba-uploaded-avatars` edit `Cross-Origin resource sharing (CORS)` with this [S3 CORS Policy](https://github.com/Firdous2307/aws-bootcamp-cruddur-2023/blob/main/aws/s3/cors.json)
+
+### Create API Gateway
+
+- In `API Gateway`, create a `HTTP API` with api.<domain_name> e.g. `api.mohammedfirdous.works`
+  
+- Create the two routes;
+
+- `POST /avatars/key_upload` with authorizer `CruddurJWTAuthorizer` which invoke Lambda `CruddurApiGatewayLambdaAuthorizer`, and with integration `CruddurAvatarUpload`
+- `OPTIONS /{proxy+}` without authorizer, but with integration `CruddurAvatarUpload`
+
+
+## CORS Not Working
+
+Following the videos and looking through the discord support community, I could not get CORS working.
+
+I had to deploy my `CruddurAvatarUpload` function again and i was able to get back my presigned url when i checked my CloudWatch Logs.
+I figured it would not be much of an issue to push foward to other wweks because it mostly dealt with infrastructure and not running tasks or problems on the application itself.
+
+Proof of Implementation for this week will be uploaded shortly.....
+
+
