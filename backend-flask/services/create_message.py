@@ -20,13 +20,13 @@ class CreateMessage:
 
     if (mode == "create"):
       if user_receiver_handle == None or len(user_receiver_handle) < 1:
-        model['errors'] = ['user_reciever_handle_blank']
+        actmodel['errors'] = ['message_exceed_max_chars_1024'] 
 
 
     if model['errors']:
       # return what we provided
       model['data'] = {
-        'display_name': 'Andrew Brown',
+        'display_name': 'Firdous',
         'handle':  user_sender_handle,
         'message': message
       }

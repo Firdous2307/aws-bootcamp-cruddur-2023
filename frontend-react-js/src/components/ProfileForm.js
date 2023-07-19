@@ -1,7 +1,9 @@
 import './ProfileForm.css';
 import React from "react";
 import process from 'process';
-import {getAccessToken} from 'lib/CheckAuth';
+import {put} from 'lib/Requests';
+import FormErrors from 'components/FormErrors';
+
 
 export default function ProfileForm(props) {
   const [bio, setBio] = React.useState('');
@@ -72,35 +74,18 @@ export default function ProfileForm(props) {
 
   const onsubmit = async (event) => {
     event.preventDefault();
-    try {
-      const backend_url = `${process.env.REACT_APP_BACKEND_URL}/api/profile/update`
-      await getAccessToken()
-      const access_token = localStorage.getItem("access_token")
-      const res = await fetch(backend_url, {
-        method: "POST",
-        headers: {
-          'Authorization': `Bearer ${access_token}`,
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          bio: bio,
-          display_name: displayName
-        }),
-      });
-      //let data = await res.json();
-      if (res.status === 200) {
-   
-        setBio(null)
-        setDisplayName(null)
-        props.setPopped(false)
-      } else {
-        console.log(res)
-      }
-    } catch (err) {
-      console.log(err);
+    const url = `${process.env.REACT_APP_BACKEND_URL}/api/profile/update`
+    const payload_data = {
+      bio: bio,
+      display_name: displayName
     }
+    put(url,payload_data,setErrors,function(data){
+      setBio(null)
+      setDisplayName(null)
+      props.setPopped(false)
+    })
   }
+
 
   const bio_onchange = (event) => {
     setBio(event.target.value);
@@ -130,7 +115,7 @@ export default function ProfileForm(props) {
             </div>
           </div>
           <div className="popup_content">
-            <input type="file" name="avatarupload" onChange={s3upload} />
+              <input type="file" name="avatarupload" onChange={s3upload} />
 
             <div className="field display_name">
               <label>Display Name</label>
@@ -149,6 +134,7 @@ export default function ProfileForm(props) {
                 onChange={bio_onchange} 
               />
             </div>
+            <FormErrors errors={errors} />
           </div>
         </form>
       </div>
