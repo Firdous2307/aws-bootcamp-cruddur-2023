@@ -15,10 +15,9 @@ export default function SigninPage() {
 
   
   const onsubmit = async (event) => {
-    console.log()
-    setErrors('')
     event.preventDefault();
-      Auth.signIn(email, password)
+    setErrors('')
+    Auth.signIn(email, password)
         .then(user => {
           console.log('user',user)
           localStorage.setItem("access_token", user.signInUserSession.accessToken.jwtToken)
