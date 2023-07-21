@@ -26,14 +26,18 @@ export default function ActivityForm(props) {
     } else {
       payload_data.message_group_uuid = params.message_group_uuid
     }
-    post(url,payload_data,setErrors,function(){
-      console.log('data:',data)
-      if (data.message_group_uuid) {
-        console.log('redirect to message group')
-        window.location.href = `/messages/${data.message_group_uuid}`
-      } else {
-        payload_data.message_group_uuid = params.message_group_uuid
-    }
+    post(url,payload_data,{
+      auth: true,
+      setErrors: setErrors,
+      success: function(){
+        console.log('data:',data)
+        if (data.message_group_uuid) {
+          console.log('redirect to message group')
+          window.location.href = `/messages/${data.message_group_uuid}`
+        } else {
+          props.setMessages(current => [...current,data]);
+        }
+      }
     })
   }
 
