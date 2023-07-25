@@ -15,7 +15,7 @@ VALUES
      current_timestamp + interval '10 day'
   ),
   (
-    (SELECT uuid from public.users WHERE users.handle = 'altbrown' LIMIT 1),
+    (SELECT uuid from public.users WHERE users.handle = 'AltFirdous' LIMIT 1),
     'I am the new user!',
     current_timestamp + interval '10 day'
   )
