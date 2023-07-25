@@ -1,4 +1,4 @@
-# Week 10 — CloudFormation Part 1
+# Week 10 — CloudFormation 
 
 ## Required Homework
 Following the live-streamed vide0 on week 10 about CloudFormation(CFN), I was able to complete the required tasks.
