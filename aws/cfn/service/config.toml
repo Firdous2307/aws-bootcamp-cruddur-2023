@@ -7,3 +7,4 @@ stack_name = 'CrdSrvBackendFlask'
 [parameters]
 EnvFrontendUrl = 'https://mohammedfirdous.works'
 EnvBackendUrl = 'https://api.mohammedfirdous.works'
+DDBMessageTable = 'CrdDdb-DynamoDBTable-10YOPRUD47SSV'
