@@ -15,12 +15,11 @@ class ReplyToActivityUuidToStringMigration:
     return data
 
   def migrate():
-    db.query_commit(ReplyToActivityUuidStringMigration.migrate_sql(),{
+    db.query_commit(ReplyToActivityUuidToStringMigration.migrate_sql(),{
     })
 
   def rollback():
-    db.query_commit(ReplyToActivityUuidStringMigration.rollback_sql(),{
+    db.query_commit(ReplyToActivityUuidToStringMigration.rollback_sql(),{
     })
 
-    
-migration = ReplyToActivityUuidStringMigration
+migration = ReplyToActivityUuidToStringMigration

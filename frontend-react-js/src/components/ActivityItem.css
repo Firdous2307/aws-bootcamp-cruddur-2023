@@ -4,10 +4,10 @@
   border-bottom: solid 1px rgb(60,54,79);
   overflow: hidden;
 }
-a.activity_item {
-  text-decoration: none;
+.activity_item.clickable:hover {
+  cursor: pointer;
 }
-a.activity_item:hover {
+.activity_item.clickable:hover {
   background: rgba(255,255,255,0.15);
 }
 
@@ -61,4 +61,12 @@ a.activity_item:hover {
 
 .activity_item .activity_actions .action:hover .icon {
   fill: rgb(149,0,255);
+}
+
+
+.activity_item.expanded .activity_content {
+  display: flex;
+}
+.activity_item.expanded .activity_content .activity_identity{
+  flex-grow: 1;
 }
