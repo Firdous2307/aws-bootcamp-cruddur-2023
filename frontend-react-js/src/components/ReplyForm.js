@@ -6,7 +6,6 @@ import {post} from 'lib/Requests';
 import ActivityContent  from 'components/ActivityContent';
 import FormErrors from 'components/FormErrors';
 
-
 export default function ReplyForm(props) {
   const [count, setCount] = React.useState(0);
   const [message, setMessage] = React.useState('');
@@ -21,7 +20,7 @@ export default function ReplyForm(props) {
   const onsubmit = async (event) => {
     event.preventDefault();
     const url = `${process.env.REACT_APP_BACKEND_URL}/api/activities/${props.activity.uuid}/reply`
-    payload_data = {
+    const payload_data = {
       activity_uuid: props.activity.uuid,
       message: message
     }
@@ -32,14 +31,12 @@ export default function ReplyForm(props) {
         if (props.setReplies) {
           props.setReplies(current => [data,...current]);
         }
-
-         // reset and close the form
+        // reset and close the form
         setCount(0)
         setMessage('')
         props.setPopped(false)
       }
     })
-
   }
 
   const textarea_onchange = (event) => {
@@ -57,16 +54,14 @@ export default function ReplyForm(props) {
       props.setPopped(false)
     }
   }
-
-
   if (props.popped === true) {
     return (
       <div className="popup_form_wrap reply_popup" onClick={close}>
         <div className="popup_form">
           <div className="popup_heading">
-          <div className="popup_title">
+            <div className="popup_title">
               Reply to...
-            </div>  
+            </div>
           </div>
           <div className="popup_content">
             <div className="activity_wrap">
