@@ -71,7 +71,10 @@ Parameters:
   SecretsOtelExporterOltpHeaders:
     Type: String
     Default: 'arn:aws:ssm:us-east-1:173482565935:parameter/cruddur/backend-flask/OTEL_EXPORTER_OTLP_HEADERS'
-
+   DDBMessageTable:
+    Type: String
+    Default: cruddur-messages
+    
 Resources:
   FargateService:
   # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-service.html
