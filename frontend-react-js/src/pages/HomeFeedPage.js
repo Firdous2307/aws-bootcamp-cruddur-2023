@@ -6,8 +6,8 @@ import DesktopSidebar     from 'components/DesktopSidebar';
 import ActivityFeed from 'components/ActivityFeed';
 import ActivityForm from 'components/ActivityForm';
 import ReplyForm from 'components/ReplyForm';
-import {checkAuth, getAccessToken} from 'lib/CheckAuth';
-
+import {get} from 'lib/Requests';
+import {checkAuth} from 'lib/CheckAuth';
 
 export default function HomeFeedPage() {
   const [activities, setActivities] = React.useState([]);
@@ -18,27 +18,14 @@ export default function HomeFeedPage() {
   const dataFetchedRef = React.useRef(false);
 
   const loadData = async () => {
-    try {
-      const backend_url = `${process.env.REACT_APP_BACKEND_URL}/api/activities/home`
-      await getAccessToken()
-      const access_token = localStorage.getItem("access_token")
-      const res = await fetch(backend_url, {
-        headers: {
-          Authorization: `Bearer ${access_token}`
-        },
-        method: "GET"
-      });
-      let resJson = await res.json();
-      if (res.status === 200) {
-        setActivities(resJson)
-      } else {
-        console.log(res)
+    const url = `${process.env.REACT_APP_BACKEND_URL}/api/activities/home`
+    get(url,{
+      auth: true,
+      success: function(data){
+        setActivities(data)
       }
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
+    })
+  }
 
   
   React.useEffect(()=>{
@@ -63,9 +50,7 @@ export default function HomeFeedPage() {
         <ReplyForm 
           activity={replyActivity} 
           popped={poppedReply} 
-          setPopped={setPoppedReply} 
-          setActivities={setActivities} 
-          activities={activities} 
+          setPopped={setPoppedReply}
         />
 
           <div className='activity_feed'>

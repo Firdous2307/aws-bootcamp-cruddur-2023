@@ -3,9 +3,13 @@
   align-items: start;
   overflow: hidden;
   padding: 16px;
+}
+
+.message_item .avatar {
   cursor: pointer;
   text-decoration: none;
 }
+
 .message_group_item:hover {
 background: rgba(255,255,255,0.08)
 }
