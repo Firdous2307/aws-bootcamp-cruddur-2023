@@ -471,7 +471,7 @@ In `CruddurApiGatewayLambdaAuthorizer`
 
 ### Update S3 Bucket COR Policy
 
-- Under the permissions for `tajarba-uploaded-avatars` edit `Cross-Origin resource sharing (CORS)` with this [S3 CORS Policy](https://github.com/Firdous2307/aws-bootcamp-cruddur-2023/blob/main/aws/s3/cors.json)
+- Under the permissions for `mohammed-firdous-uploaded-avatars` edit `Cross-Origin resource sharing (CORS)` with this [S3 CORS Policy](https://github.com/Firdous2307/aws-bootcamp-cruddur-2023/blob/main/aws/s3/cors.json)
 
 ### Create API Gateway
 
@@ -490,6 +490,25 @@ Following the videos and looking through the discord support community, I could 
 I had to deploy my `CruddurAvatarUpload` function again and i was able to get back my presigned url when i checked my CloudWatch Logs.
 I figured it would not be much of an issue to push foward to other wweks because it mostly dealt with infrastructure and not running tasks or problems on the application itself.
 
-Proof of Implementation for this week will be uploaded shortly.....
+## Proof of Implementation 
+
+![Image of CORS error](assets/week%208/CORS%20error.png)
+![Image of AvatarsFolder](assets/week%208/avatars%20folder.png)
+![Image of bio-column](assets/week%208/bio%20column.png)
+![Image of event-notifications](assets/week%208/event%20notifications.png)
+![Image of Fetch-Error](assets/week%208/fetch%20error.png)
+![Image of key-upload-error](assets/week%208/key-upload%20error.png)
+![Image of lambda-authorizer error](assets/week%208/lambda-authorizer%20error.png)
+![Image of latest lambda layer](assets/week%208/latest%20lambda%20layer.png)
+![Image of mock not uploading](assets/week%208/mock%20not%20uploading.png)
+![Image of presigned url showing](assets/week%208/presigned%20url%20showing.png)
+![Image of preview seeded data](assets/week%208/preview%20seeded%20data.png)
+![Image of profile display](assets/week%208/profile%20display.png)
+![Image of profile edit](assets/week%208/profile%20edit.png)
+![Image of status 200](assets/week%208/status%20200.png)
+![Image of trigger](assets/week%208/trigger.png)
+![Image of unauthorized error](assets/week%208/unauthorized%20error.png)
+![Image of undefined error](assets/week%208/undefined%20error.png)
+![Image of uploaded-avatars bucket](assets/week%208/uploaded-avatars%20bucket.png)
 
 
