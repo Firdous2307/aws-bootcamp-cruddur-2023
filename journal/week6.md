@@ -502,8 +502,6 @@ aws ecs create-service --cli-input-json file://aws/json/service-frontend-react-j
 To create a SSL/TLS certificate go to `AWS Certificate Manager`
 Go to request and select "Request a public certificate".
 
-![New listener]()
-
 
 # Securing Backend flask
 
@@ -711,3 +709,17 @@ docker run --rm \
   -it busybox
 ```
 
+##  Proof of Implementation
+![Proof of Implementation](assets/week%2011/week%206-7/Route53.png)
+![Proof of Implementation](assets/week%2011/week%206-7/Target-groups.png)
+![Proof of Implementation](assets/week%2011/week%206-7/backend-flask%20healthy.png)
+![Proof of Implementation](assets/week%2011/week%206-7/cognito%20user%20session.png)
+![Proof of Implementation](assets/week%2011/week%206-7/domain%20working.png)
+![Proof of Implementation](assets/week%2011/week%206-7/elb%20success.png)
+![Proof of Implementation](assets/week%2011/week%206-7/elb%20working%20for%20backend.png)
+![Proof of Implementation](assets/week%2011/week%206-7/health%20check.png)
+![Proof of Implementation](assets/week%2011/week%206-7/health-check%20running.png)
+![Proof of Implementation](assets/week%2011/week%206-7/new%20user.png)
+![New listener](assets/week%2011/week%206-7/Listeners.png)
+![Proof of Implementation](assets/week%2011/week%206-7/prod.png)
+![Proof of Implementation](assets/week%2011/week%206-7/tasks%20healthy.png)
