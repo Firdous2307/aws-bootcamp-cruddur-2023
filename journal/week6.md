@@ -1,1 +1,1 @@
-# Week 6 — Deploying Containers
+# Week 6-7 — Deploying Containers
