@@ -229,10 +229,10 @@ Lucid Chart has a very limited free tier plan for shapes and i ran out of shapes
 Below is the proof of Implementing Architectural Diagarams using LucidChart and Draw.io;
 
 ## Conceptual Diagram ShareLink in Lucid
-(https://lucid.app/lucidchart/80cef43e-9e67-4072-8633-15f7cb27bce5/edit?view_items=nb4frXAECafR&invitationId=inv_1b0fb3b7-9608-4716-a1af-adfe5fab884b)
+[Conceptual Diagram in Lucid](https://lucid.app/lucidchart/80cef43e-9e67-4072-8633-15f7cb27bce5/edit?view_items=nb4frXAECafR&invitationId=inv_1b0fb3b7-9608-4716-a1af-adfe5fab884b)
 
 ## Conceptual Diagram ShareLink in Draw.io
-(https://app.diagrams.net/#G1RC3fT-XC-0_UhDRDfJp5GVTZkXFqaZad)
+[Conceptual Diagram in Draw.io](https://app.diagrams.net/#G1RC3fT-XC-0_UhDRDfJp5GVTZkXFqaZad)
 
 
 
